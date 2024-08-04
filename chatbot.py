@@ -6,11 +6,10 @@ from langchain_core.vectorstores import VectorStoreRetriever
 from langchain.chains import RetrievalQA
 from langchain_openai import ChatOpenAI
 
-load_dotenv("/keys.env")
-
+st.secrets["db_username"]
 config = dotenv_values("keys.env")
-os.environ['OPENAI_API_KEY'] = config['OPEN_API_KEY']
-os.environ['PINECONE_API_KEY'] = config['PINE_CONE_KEY']
+os.environ['OPENAI_API_KEY'] = st.secrets["OPEN_API_KEY"]
+os.environ['PINECONE_API_KEY'] = st.secrets["PINE_CONE_KEY"]
 
 
 index_name = "disease-symptoms-gpt-4"
