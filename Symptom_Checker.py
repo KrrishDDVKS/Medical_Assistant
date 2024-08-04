@@ -47,7 +47,8 @@ st.write(
         unsafe_allow_html=True,)
 
 if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role": 👨‍⚕️, "content": “Hello! MediConnect AI is here to help you diagnose symptoms. How can I assist you today?”}]
+    st.session_state["messages"] = [{"role": "assistant", "content": "Hello! MediConnect AI is here to help you diagnose symptoms. How can I assist you today?"
+}]
 
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
