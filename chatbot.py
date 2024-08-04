@@ -6,7 +6,7 @@ from langchain_core.vectorstores import VectorStoreRetriever
 from langchain.chains import RetrievalQA
 from langchain_openai import ChatOpenAI
 
-st.secrets["db_username"]
+
 config = dotenv_values("keys.env")
 os.environ['OPENAI_API_KEY'] = st.secrets["OPEN_API_KEY"]
 os.environ['PINECONE_API_KEY'] = st.secrets["PINE_CONE_KEY"]
