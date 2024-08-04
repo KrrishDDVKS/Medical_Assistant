@@ -38,7 +38,7 @@ retriever=retriever
 )
 
 
-st.title("Symptom Checker :mask:")
+st.title("Symptom-Based Diagnosis :mask:")
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
