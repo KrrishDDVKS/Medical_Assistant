@@ -7,6 +7,11 @@ from langchain.chains import RetrievalQA
 from langchain_openai import ChatOpenAI
 import streamlit as st
 
+st.set_page_config(
+    page_title="MediConnect AI",
+    page_icon=":hospital:",
+    layout="wide",
+)
 config = dotenv_values("keys.env")
 os.environ['OPENAI_API_KEY'] = st.secrets["OPEN_API_KEY"]
 os.environ['PINECONE_API_KEY'] = st.secrets["PINE_CONE_KEY"]
@@ -33,7 +38,7 @@ retriever=retriever
 )
 
 
-st.title("💬 Chatbot")
+st.title("Symptom Checker :mask:")
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
