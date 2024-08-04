@@ -38,7 +38,14 @@ retriever=retriever
 )
 
 
-st.title("Symptom-Based Diagnosis :mask:")
+st.header("Symptom-Based Diagnosis :mask:")
+st.write(
+        '''
+    <b>Objective:</b> Assist patients in understanding potential diagnoses based on their reported symptoms.<br>
+    <b>Details:</b> Utilize past conversation data to match symptoms with possible diagnoses, offering preliminary insights and advice.<br>
+    <b>Benefit:</b> Empowers patients with information, aiding in early detection and preparation before formal consultations with doctors.</span>''',
+        unsafe_allow_html=True,)
+
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
