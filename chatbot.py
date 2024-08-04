@@ -5,7 +5,7 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_core.vectorstores import VectorStoreRetriever
 from langchain.chains import RetrievalQA
 from langchain_openai import ChatOpenAI
-
+import streamlit as st
 
 config = dotenv_values("keys.env")
 os.environ['OPENAI_API_KEY'] = st.secrets["OPEN_API_KEY"]
@@ -32,7 +32,7 @@ chain_type="stuff",
 retriever=retriever
 )
 
-import streamlit as st
+
 st.title("💬 Chatbot")
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
