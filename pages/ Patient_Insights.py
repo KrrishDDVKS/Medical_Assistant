@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-st.title('Patient Insights:male-doctor:')
+st.title('Patient Conversation Summaries:male-doctor:')
 if "summary" not in st.session_state:
     st.session_state["summary"] = ""
 
