@@ -37,7 +37,7 @@ chain_type="stuff",
 retriever=retriever
 )
 
-st.markdown("<h1 style='text-align: center; color: black;'>MediConnect AI :hospital:</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: black;'>MediConnect AI 🏥</h1>", unsafe_allow_html=True)
 st.header("Symptom-Based Diagnosis :mask:")
 st.write(
         '''
@@ -47,7 +47,7 @@ st.write(
         unsafe_allow_html=True,)
 
 if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role": "doctor", "content": "Hi,I am your Doctor. How may I help you?"}]
+    st.session_state["messages"] = [{"role": 👨‍⚕️, "content": "Hi,I am your Doctor. How may I help you?"}]
 
 for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
