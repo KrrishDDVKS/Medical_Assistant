@@ -11,7 +11,7 @@ if conid := st.selectbox(
     a,):
     if conid !=' ':
     
-        df=pd.read_csv('.\summaries.csv')
+        df=pd.read_csv('..\summaries.csv')
         st.session_state.summary=df.loc[df['File Name']==conid]['Summary'].values[0]
     else:
             st.session_state.summary=''
