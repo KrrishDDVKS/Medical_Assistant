@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 
+st.markdown("<h1 style='text-align: center; color: black;'>MediConnect AI 🏥</h1>", unsafe_allow_html=True)
 st.header('Patient Conversation Summaries:male-doctor:')
 st.write(
         '''<b>Objective:</b> Provide doctors with a summarized view of previous patient conversations.<br>
