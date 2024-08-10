@@ -27,7 +27,12 @@ openai_api_key=os.environ.get('OPEN_API_KEY')
 
 vectorstore = PineconeVectorStore(index_name=index_name, embedding=embed)
 
-
+prompt_template='''Accept the user’s symptoms as input and provide probable diseases, diagnoses and prescription using only the information stored in the vector database. If the information is not available in the database, politely inform the user that the data is insufficient to provide a diagnosis.
+    Text:
+    {context}'''
+PROMPT = PromptTemplate(
+    template=prompt_template, input_variables=["context"]
+)
 
 retriever = VectorStoreRetriever(vectorstore=vectorstore)
 qa_chain = RetrievalQA.from_chain_type(
