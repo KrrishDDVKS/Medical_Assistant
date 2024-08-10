@@ -31,12 +31,12 @@ vectorstore = PineconeVectorStore(index_name=index_name, embedding=embed)
 
 retriever = VectorStoreRetriever(vectorstore=vectorstore)
 qa_chain = RetrievalQA.from_chain_type(
-llm=ChatOpenAI(api_key=os.environ.get("OPEN_API_KEY"),model_name='gpt-4o',
-temperature=0.0),
-chain_type="stuff",
-retriever=retriever
-)
-
+    llm=ChatOpenAI(api_key=os.environ['OPENAI_API_KEY'],
+                   model_name='gpt-4o',
+                   temperature=0.0),
+    chain_type="stuff",
+    retriever=retriever,
+    chain_type_kwargs={"prompt": PROMPT},)
 st.markdown("<h1 style='text-align: center; color: black;'>MediConnect AI 🏥</h1>", unsafe_allow_html=True)
 st.header("Symptom-Based Diagnosis :mask:")
 st.write(
