@@ -5,6 +5,7 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_core.vectorstores import VectorStoreRetriever
 from langchain.chains import RetrievalQA
 from langchain_openai import ChatOpenAI
+from langchain.prompts import PromptTemplate
 import streamlit as st
 
 st.set_page_config(
