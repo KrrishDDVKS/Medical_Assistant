@@ -25,24 +25,33 @@ model='text-embedding-ada-002',
 openai_api_key=os.environ.get('OPEN_API_KEY')
 )
 
+llm=ChatOpenAI(api_key=os.environ['OPENAI_API_KEY'],
+                   model_name='gpt-4o',
+                   temperature=0.0)
 
 vectorstore = PineconeVectorStore(index_name=index_name, embedding=embed)
 
-prompt_template='''If not Medical Related field type yes else type no    
+prompt_template='''If Medical Related field type yes else give politely inform the user that the data is insufficient to provide a diagnosis   
     Text:
     {context}'''
 PROMPT = PromptTemplate(
     template=prompt_template, input_variables=["context"]
 )
 
-retriever = VectorStoreRetriever(vectorstore=vectorstore)
-qa_chain = RetrievalQA.from_chain_type(
-    llm=ChatOpenAI(api_key=os.environ['OPENAI_API_KEY'],
-                   model_name='gpt-4o',
-                   temperature=0.0),
-    chain_type="stuff",
-    retriever=retriever,
-    chain_type_kwargs={"prompt": PROMPT},)
+chain = LLMChain(llm=llm, prompt=prompt_template)
+if chain=='Yes':
+    prompt_template='''Accept the user’s symptoms as input and provide probable diseases, diagnoses and prescription using only the information stored in the vector database. politely inform the user that the data is insufficient to provide a diagnosis when the given prompt is not relavent to Medical Symptoms.    
+    Text:
+    {context}'''
+PROMPT = PromptTemplate(
+    template=prompt_template, input_variables=["context"]
+)
+
+    retriever = VectorStoreRetriever(vectorstore=vectorstore)
+    qa_chain = RetrievalQA.from_chain_type(llm=llm,
+        chain_type="stuff",
+        retriever=retriever,
+        chain_type_kwargs={"prompt": PROMPT},)
 st.markdown("<h1 style='text-align: center; color: black;'>MediConnect AI 🏥</h1>", unsafe_allow_html=True)
 st.header("Symptom-Based Diagnosis :mask:")
 st.write(
