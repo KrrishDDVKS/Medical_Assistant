@@ -28,7 +28,7 @@ openai_api_key=os.environ.get('OPEN_API_KEY')
 
 vectorstore = PineconeVectorStore(index_name=index_name, embedding=embed)
 
-prompt_template='''Accept only the user’s symptoms as input and provide probable diseases, diagnoses and prescription from vector database metadata only. politely inform the user that the data is insufficient to provide a diagnosis when the given prompt is not relavent to Medical field.    
+prompt_template='''Accept only if the input is a biological symptom and provide probable diseases, diagnoses and prescription from vector database metadata only else politely inform the user that the data is not relevant.    
     Text:
     {context}'''
 PROMPT = PromptTemplate(
