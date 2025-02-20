@@ -3,7 +3,8 @@ from dotenv import load_dotenv,dotenv_values
 from langchain_pinecone import PineconeVectorStore
 from langchain_openai import OpenAIEmbeddings
 from langchain_core.vectorstores import VectorStoreRetriever
-from langchain.chains import RetrievalQA,LLMChain
+from langchain.chains import RetrievalQA
+from langchain.chains import LLMChain
 from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 import streamlit as st
