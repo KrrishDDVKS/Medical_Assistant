@@ -60,8 +60,8 @@ if prompt := st.chat_input():
     st.session_state.messages.append({"role": "user", "content": prompt})
     st.chat_message("user").write(prompt)
     chain = LLMChain(llm=llm, prompt=PROMPT)
-    print(chain.run(prompt))
-    if chain.run(prompt) in ['Yes','Yes.']:
+    answer=chain.run(prompt)
+    if answer in ['Yes','Yes.']:
         prompt_template='''Accept the user’s symptoms as input and provide probable diseases, diagnoses and prescription using only the information stored in the vector database. politely inform the user that the data is insufficient to provide a diagnosis when the given prompt is not relavent to Medical Symptoms.    
         Text:
         {context}'''
@@ -69,12 +69,14 @@ if prompt := st.chat_input():
             template=prompt_template, input_variables=["context"]
         )
 
-    retriever = VectorStoreRetriever(vectorstore=vectorstore)
-    qa_chain = RetrievalQA.from_chain_type(llm=llm,
-            chain_type="stuff",
-            retriever=retriever,
-            chain_type_kwargs={"prompt": PROMPT},)
+        retriever = VectorStoreRetriever(vectorstore=vectorstore)
+        qa_chain = RetrievalQA.from_chain_type(llm=llm,
+                chain_type="stuff",
+                retriever=retriever,
+                chain_type_kwargs={"prompt": PROMPT},)
 
-    answer = qa_chain.run(query=prompt)
+        answer = qa_chain.run(query=prompt)
+    else:
+        
     st.session_state.messages.append({"role": "assistant", "content": answer})
     st.chat_message("assistant").write(answer)
