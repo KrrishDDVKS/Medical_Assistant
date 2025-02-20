@@ -1,4 +1,5 @@
 import os
+import re
 from dotenv import load_dotenv,dotenv_values
 from langchain_pinecone import PineconeVectorStore
 from langchain_openai import OpenAIEmbeddings
@@ -61,7 +62,7 @@ if prompt := st.chat_input():
     st.chat_message("user").write(prompt)
     chain = LLMChain(llm=llm, prompt=PROMPT)
     answer=chain.run(prompt)
-    if answer in ['Yes','Yes.']:
+    if re.findall(r'Reason for Call.*(?:<c>|<\/c>)', response)[0] in ['Yes','yes']:
         prompt_template='''Accept the user’s symptoms as input and provide probable diseases, diagnoses and prescription using only the information stored in the vector database. politely inform the user that the data is insufficient to provide a diagnosis when the given prompt is not relavent to Medical Symptoms.    
         Text:
         {context}'''
