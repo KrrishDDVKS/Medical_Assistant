@@ -1,4 +1,4 @@
-import os
+kimport os
 from dotenv import load_dotenv,dotenv_values
 from langchain_pinecone import PineconeVectorStore
 from langchain_openai import OpenAIEmbeddings
@@ -28,7 +28,7 @@ openai_api_key=os.environ.get('OPEN_API_KEY')
 
 vectorstore = PineconeVectorStore(index_name=index_name, embedding=embed)
 
-prompt_template='''Accept the user’s symptoms as input and provide probable diseases, diagnoses and prescription from vector database metadata only. politely inform the user that the data is insufficient to provide a diagnosis when the given prompt is not relavent to Medical field.    
+prompt_template='''Accept only the user’s symptoms as input and provide probable diseases, diagnoses and prescription from vector database metadata only. politely inform the user that the data is insufficient to provide a diagnosis when the given prompt is not relavent to Medical field.    
     Text:
     {context}'''
 PROMPT = PromptTemplate(
