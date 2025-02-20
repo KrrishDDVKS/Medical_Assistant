@@ -28,7 +28,7 @@ openai_api_key=os.environ.get('OPEN_API_KEY')
 
 vectorstore = PineconeVectorStore(index_name=index_name, embedding=embed)
 
-prompt_template='''If Medical Related field type yes else type no    
+prompt_template='''If not Medical Related field type yes else type no    
     Text:
     {context}'''
 PROMPT = PromptTemplate(
