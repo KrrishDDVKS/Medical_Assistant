@@ -32,7 +32,7 @@ llm=ChatOpenAI(api_key=os.environ['OPENAI_API_KEY'],
 
 vectorstore = PineconeVectorStore(index_name=index_name, embedding=embed)
 
-prompt_template='''If Medical Related field type yes else give politely inform the user that the data is insufficient to provide a diagnosis   
+prompt_template='''If Medical Symptoms type yes else give politely inform the user that the data is insufficient to provide a diagnosis   
     Text:
     {context}'''
 PROMPT = PromptTemplate(
