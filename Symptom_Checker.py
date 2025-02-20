@@ -28,7 +28,7 @@ openai_api_key=os.environ.get('OPEN_API_KEY')
 
 vectorstore = PineconeVectorStore(index_name=index_name, embedding=embed)
 
-prompt_template='''You are a medical assistant that accepts only medical-related input. Accept the user’s symptoms as input and retrieve probable diseases, diagnoses, and prescriptions from a vector database. If the input is irrelevant to the medical field, politely inform the user that the data is insufficient to provide a diagnosis. Ensure responses are strictly based on the metadata retrieved from the vector database, without making assumptions or providing opinions outside of it.    
+prompt_template='''If Medical Related field type yes else no    
     Text:
     {context}'''
 PROMPT = PromptTemplate(
