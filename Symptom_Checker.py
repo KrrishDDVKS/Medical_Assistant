@@ -1,4 +1,4 @@
-kimport os
+import os
 from dotenv import load_dotenv,dotenv_values
 from langchain_pinecone import PineconeVectorStore
 from langchain_openai import OpenAIEmbeddings
