@@ -76,7 +76,5 @@ if prompt := st.chat_input():
                 chain_type_kwargs={"prompt": PROMPT},)
 
         answer = qa_chain.run(query=prompt)
-    else:
-        
     st.session_state.messages.append({"role": "assistant", "content": answer})
     st.chat_message("assistant").write(answer)
