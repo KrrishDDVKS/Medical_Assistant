@@ -59,7 +59,7 @@ if prompt := st.chat_input():
     
     st.session_state.messages.append({"role": "user", "content": prompt})
     st.chat_message("user").write(prompt)
-    chain = LLMChain(llm=llm, prompt=prompt_template)
+    chain = LLMChain(llm=llm, prompt=PROMPT)
     if chain.run(prompt)=='Yes':
         prompt_template='''Accept the user’s symptoms as input and provide probable diseases, diagnoses and prescription using only the information stored in the vector database. politely inform the user that the data is insufficient to provide a diagnosis when the given prompt is not relavent to Medical Symptoms.    
         Text:
