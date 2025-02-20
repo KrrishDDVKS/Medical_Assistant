@@ -47,8 +47,8 @@ PROMPT = PromptTemplate(
     template=prompt_template, input_variables=["context"]
 )
 
-    retriever = VectorStoreRetriever(vectorstore=vectorstore)
-    qa_chain = RetrievalQA.from_chain_type(llm=llm,
+retriever = VectorStoreRetriever(vectorstore=vectorstore)
+qa_chain = RetrievalQA.from_chain_type(llm=llm,
         chain_type="stuff",
         retriever=retriever,
         chain_type_kwargs={"prompt": PROMPT},)
