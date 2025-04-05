@@ -5,3 +5,4 @@ langchain-core
 langchain
 streamlit==1.44.1
 pandas
+pydub
