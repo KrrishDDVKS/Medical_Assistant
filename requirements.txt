@@ -3,5 +3,5 @@ langchain-pinecone
 langchain-openai
 langchain-core
 langchain
-streamlit
+streamlit==1.44.1
 pandas
