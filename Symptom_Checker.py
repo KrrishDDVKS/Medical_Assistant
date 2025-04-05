@@ -77,5 +77,15 @@ if prompt := st.chat_input():
                 chain_type_kwargs={"prompt": PROMPT},)
 
         answer = qa_chain.run(query=prompt)
+    else:
+        prompt_template='''Accept the queries as a customer care and generate an accurate reply.   
+            Text:
+            {context}'''
+        PROMPT = PromptTemplate(
+        template=prompt_template, input_variables=["context"])
+        chain = LLMChain(llm=llm, prompt=PROMPT).run(prompt)
+        st.session_state["messages"][st.session_state['userid']].append({"role": "assistant", "content": chain})
+        st.chat_message("assistant").write(chain)
+
     st.session_state.messages.append({"role": "assistant", "content": answer})
     st.chat_message("assistant").write(answer)
