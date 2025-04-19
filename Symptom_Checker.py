@@ -78,6 +78,9 @@ if prompt := st.chat_input():
                 chain_type_kwargs={"prompt": PROMPT},)
 
         answer = qa_chain.run(query=prompt)
+        st.session_state.messages.append({"role": "assistant", "content": answer})
+        st.chat_message("assistant").write(answer)
+        
     else:
         prompt_template='''Accept the queries as a customer care and generate an accurate reply.   
             Text:
@@ -87,3 +90,4 @@ if prompt := st.chat_input():
         chain = LLMChain(llm=llm, prompt=PROMPT).run(prompt)
         st.session_state.messages.append({"role": "assistant", "content": chain})
         st.chat_message("assistant").write(chain)
+        st.chat_message("assistant").write("This is answered by second Agent. The Main purpose of this app is to detect disease from symptom")
