@@ -90,4 +90,4 @@ if prompt := st.chat_input():
         chain = LLMChain(llm=llm, prompt=PROMPT).run(prompt)
         st.session_state.messages.append({"role": "assistant", "content": chain})
         st.chat_message("assistant").write(chain)
-        st.chat_message("assistant").write("This is answered by second Agent. The Main purpose of this app is to detect disease from symptom")
+        st.chat_message("assistant").write("This is answered by second Agent. The Main purpose of this app is to detect disease from symptom. Please provide the Symptom")
