@@ -76,12 +76,6 @@ if prompt := st.chat_input():
         st.chat_message("assistant").write(answer)
         
     else:
-        prompt_template='''Accept the queries as a customer care and generate an accurate reply.   
-            Text:
-            {context}'''
-        PROMPT = PromptTemplate(
-        template=prompt_template, input_variables=["context"])
-        chain = LLMChain(llm=llm, prompt=PROMPT).run(prompt)
         
         messages=[SystemMessage(content="Accept the queries as a customer care and generate an accurate reply."),
                           HumanMessage(content=prompt)]
@@ -91,6 +85,7 @@ if prompt := st.chat_input():
 
         st.chat_message("assistant").write(answer)
         st.chat_message("assistant").write("This is answered by second Agent. The Main purpose of this app is to detect disease from symptom. Please provide the Symptom")
+
 
 
 
