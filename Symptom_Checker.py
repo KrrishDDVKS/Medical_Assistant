@@ -33,13 +33,6 @@ llm=ChatOpenAI(api_key=os.environ['OPENAI_API_KEY'],
 
 vectorstore = PineconeVectorStore(index_name=index_name, embedding=embed)
 
-prompt_template='''If Medical Symptoms type yes else give politely inform the user that the data is insufficient to provide a diagnosis   
-    Text:
-    {context}'''
-PROMPT = PromptTemplate(
-    template=prompt_template, input_variables=["context"]
-)
-
 st.markdown("<h1 style='text-align: center; color: black;'>MediConnect AI 🏥</h1>", unsafe_allow_html=True)
 st.header("Symptom-Based Diagnosis :mask:")
 st.write(
@@ -61,8 +54,11 @@ if prompt := st.chat_input():
     
     st.session_state.messages.append({"role": "user", "content": prompt})
     st.chat_message("user").write(prompt)
-    chain = LLMChain(llm=llm, prompt=PROMPT)
-    answer=chain.run(prompt)
+    messages=[SystemMessage(content="If Medical Symptoms type yes else give politely inform the user that the data is insufficient to provide a diagnosis"),
+                          HumanMessage(content=prompt)]
+    chat_response = llm.invoke(messages)
+    answer=chat_response.content
+
     if re.search(r'\bYes\b', answer):
         prompt_template='''Accept the user’s symptoms as input and provide probable diseases, diagnoses and prescription using only the information stored in the vector database. politely inform the user that the data is insufficient to provide a diagnosis when the given prompt is not relavent to Medical Symptoms.    
         Text:
@@ -88,6 +84,13 @@ if prompt := st.chat_input():
         PROMPT = PromptTemplate(
         template=prompt_template, input_variables=["context"])
         chain = LLMChain(llm=llm, prompt=PROMPT).run(prompt)
-        st.session_state.messages.append({"role": "assistant", "content": chain})
-        st.chat_message("assistant").write(chain)
+        
+        messages=[SystemMessage(content="Accept the queries as a customer care and generate an accurate reply."),
+                          HumanMessage(content=prompt)]
+        chat_response = llm.invoke(messages)
+        answer=chat_response.content
+        st.session_state.messages.append({"role": "assistant", "content": answer})
+
+        st.chat_message("assistant").write(answer)
         st.chat_message("assistant").write("This is answered by second Agent. The Main purpose of this app is to detect disease from symptom. Please provide the Symptom")
+
