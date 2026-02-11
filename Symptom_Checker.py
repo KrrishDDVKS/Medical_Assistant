@@ -52,7 +52,7 @@ if prompt := st.chat_input():
     
     st.session_state.messages.append({"role": "user", "content": prompt})
     st.chat_message("user").write(prompt)
-    messages=[SystemMessage(content="If Medical Symptoms type yes else give politely inform the user that the data is insufficient to provide a diagnosis"),
+    messages=[SystemMessage(content="If Medical Symptoms and related to body parts type yes else give politely inform the user that the data is insufficient to provide a diagnosis"),
                           HumanMessage(content=prompt)]
     chat_response = llm.invoke(messages)
     answer=chat_response.content
@@ -85,6 +85,7 @@ if prompt := st.chat_input():
 
         st.chat_message("assistant").write(answer)
         st.chat_message("assistant").write("This is answered by second Agent. The Main purpose of this app is to detect disease from symptom. Please provide the Symptom")
+
 
 
 
