@@ -85,7 +85,7 @@ if prompt := st.chat_input():
         model="gpt-4o-mini",
         messages=[{"role": "user", "content": prompt}],
         temperature=0)
-        
+        st.write(response)
         answer=response.choices[0].message.content
         
         st.session_state.messages.append({"role": "assistant", "content": answer})
@@ -101,6 +101,7 @@ if prompt := st.chat_input():
 
         st.chat_message("assistant").write(answer)
         st.chat_message("assistant").write("This is answered by second Agent. The Main purpose of this app is to detect disease from symptom. Please provide the Symptom")
+
 
 
 
