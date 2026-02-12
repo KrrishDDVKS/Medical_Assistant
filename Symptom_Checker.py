@@ -61,7 +61,7 @@ if prompt := st.chat_input():
 
     if re.search(r'\bYes\b', answer):
 
-        query_vec = embed(query)
+        query_vec = embed(prompt)
 
         results = index.query(
             vector=query_vec,
@@ -95,5 +95,6 @@ if prompt := st.chat_input():
 
         st.chat_message("assistant").write(answer)
         st.chat_message("assistant").write("This is answered by second Agent. The Main purpose of this app is to detect disease from symptom. Please provide the Symptom")
+
 
 
