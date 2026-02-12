@@ -18,8 +18,8 @@ config = dotenv_values("keys.env")
 os.environ['OPENAI_API_KEY'] = st.secrets["OPEN_API_KEY"]
 os.environ['PINECONE_API_KEY'] = st.secrets["PINE_CONE_KEY"]
 
-
 index_name = "disease-symptoms-gpt-4"
+index = pc.Index(index_name)
 index = pc.Index(index_name)
 
 client=OpenAI(api_key=os.environ['OPENAI_API_KEY'])
@@ -99,6 +99,7 @@ if prompt := st.chat_input():
 
         st.chat_message("assistant").write(answer)
         st.chat_message("assistant").write("This is answered by second Agent. The Main purpose of this app is to detect disease from symptom. Please provide the Symptom")
+
 
 
 
