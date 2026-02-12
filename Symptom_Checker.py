@@ -68,7 +68,7 @@ if prompt := st.chat_input():
 
         results = index.query(
             vector=query_vec,
-            top_k=top_k,
+            top_k=3,
             include_metadata=True
         )
 
@@ -100,6 +100,7 @@ if prompt := st.chat_input():
 
         st.chat_message("assistant").write(answer)
         st.chat_message("assistant").write("This is answered by second Agent. The Main purpose of this app is to detect disease from symptom. Please provide the Symptom")
+
 
 
 
