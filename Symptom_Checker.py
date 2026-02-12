@@ -6,6 +6,7 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_core.vectorstores import VectorStoreRetriever
 from langchain_core.messages import SystemMessage, HumanMessage
 from langchain_openai import ChatOpenAI
+from openai import OpenAI
 import streamlit as st
 
 st.set_page_config(
@@ -29,6 +30,7 @@ llm=ChatOpenAI(api_key=os.environ['OPENAI_API_KEY'],
                    model_name='gpt-4o',
                    temperature=0.0)
 
+client=OpenAI(api_key=os.environ['OPENAI_API_KEY'])
 vectorstore = PineconeVectorStore(index_name=index_name, embedding=embed)
 
 st.markdown("<h1 style='text-align: center; color: black;'>MediConnect AI 🏥</h1>", unsafe_allow_html=True)
@@ -62,7 +64,7 @@ if prompt := st.chat_input():
         Text:
         {context}'''
 
-        response = llm.chat.completions.create(
+        response = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[{"role": "user", "content": prompt}],
         temperature=0)
@@ -82,6 +84,7 @@ if prompt := st.chat_input():
 
         st.chat_message("assistant").write(answer)
         st.chat_message("assistant").write("This is answered by second Agent. The Main purpose of this app is to detect disease from symptom. Please provide the Symptom")
+
 
 
 
