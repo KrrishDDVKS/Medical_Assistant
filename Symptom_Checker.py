@@ -23,7 +23,7 @@ index_name = "disease-symptoms-gpt-4"
 pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
 index = pc.Index(index_name)
 
-client=OpenAI(api_key=os.environ['OPENAI_API_KEY'], model_name='gpt-4o')
+client=OpenAI(api_key=os.environ['OPENAI_API_KEY'])
 def embed(text):
     response = client.embeddings.create(
         model="text-embedding-ada-002",
@@ -101,6 +101,7 @@ if prompt := st.chat_input():
 
         st.chat_message("assistant").write(answer)
         st.chat_message("assistant").write("This is answered by second Agent. The Main purpose of this app is to detect disease from symptom. Please provide the Symptom")
+
 
 
 
