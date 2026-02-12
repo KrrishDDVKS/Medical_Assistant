@@ -53,18 +53,18 @@ for msg in st.session_state.messages:
     st.chat_message(msg["role"]).write(msg["content"])
 
 
-if prompt := st.chat_input():
+if prompt1 := st.chat_input():
     
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    st.chat_message("user").write(prompt)
+    st.session_state.messages.append({"role": "user", "content": prompt1})
+    st.chat_message("user").write(prompt1)
     messages=[SystemMessage(content="If Medical Symptoms and related to body parts type yes else give politely inform the user that the data is insufficient to provide a diagnosis"),
-                          HumanMessage(content=prompt)]
+                          HumanMessage(content=prompt1)]
     chat_response = llm.invoke(messages)
     answer=chat_response.content
 
     if re.search(r'\bYes\b', answer):
     
-        query_vec = embed(prompt)
+        query_vec = embed(prompt1)
 
         results = index.query(
             vector=query_vec,
@@ -73,12 +73,12 @@ if prompt := st.chat_input():
         )
 
         texts = [match["metadata"]["text"] for match in results["matches"]]
-        res = 'or'.join(texts)
+        st.write(texts)
         
         
         prompt='''Accept the user’s symptoms as input and provide as output the probable diseases, diagnoses and prescription using only the information stored in the vector database. politely inform the user that the data is insufficient to provide a diagnosis when the given prompt is not relavent to Medical Symptoms.    
         Symptoms:
-        {res}
+        {texts}
         Disease:'''
 
         response = client.chat.completions.create(
@@ -101,6 +101,7 @@ if prompt := st.chat_input():
 
         st.chat_message("assistant").write(answer)
         st.chat_message("assistant").write("This is answered by second Agent. The Main purpose of this app is to detect disease from symptom. Please provide the Symptom")
+
 
 
 
