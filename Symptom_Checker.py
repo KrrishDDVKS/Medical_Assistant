@@ -35,8 +35,6 @@ llm=ChatOpenAI(api_key=os.environ['OPENAI_API_KEY'],
                    temperature=0.0)
 
 
-vectorstore = PineconeVectorStore(index_name=index_name, embedding=embed)
-
 st.markdown("<h1 style='text-align: center; color: black;'>MediConnect AI 🏥</h1>", unsafe_allow_html=True)
 st.header("Symptom-Based Diagnosis :mask:")
 st.write(
@@ -101,6 +99,7 @@ if prompt := st.chat_input():
 
         st.chat_message("assistant").write(answer)
         st.chat_message("assistant").write("This is answered by second Agent. The Main purpose of this app is to detect disease from symptom. Please provide the Symptom")
+
 
 
 
