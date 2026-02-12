@@ -74,7 +74,7 @@ if prompt := st.chat_input():
 
         texts = [match["metadata"]["text"] for match in results["matches"]]
         res = 'or'.join(texts)
-        st.write(res)
+        st.write(type(res))
         
         prompt='''Accept the user’s symptoms as input and provide as output the probable diseases, diagnoses and prescription using only the information stored in the vector database. politely inform the user that the data is insufficient to provide a diagnosis when the given prompt is not relavent to Medical Symptoms.    
         Symptoms:
@@ -101,6 +101,7 @@ if prompt := st.chat_input():
 
         st.chat_message("assistant").write(answer)
         st.chat_message("assistant").write("This is answered by second Agent. The Main purpose of this app is to detect disease from symptom. Please provide the Symptom")
+
 
 
 
