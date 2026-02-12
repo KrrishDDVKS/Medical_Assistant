@@ -21,16 +21,20 @@ os.environ['PINECONE_API_KEY'] = st.secrets["PINE_CONE_KEY"]
 
 index_name = "disease-symptoms-gpt-4"
 
-embed = OpenAIEmbeddings(
-model='text-embedding-ada-002',
-openai_api_key=os.environ.get('OPEN_API_KEY')
-)
 
+client=OpenAI(api_key=os.environ['OPENAI_API_KEY'])
+def embed(text):
+    response = client.embeddings.create(
+        model="text-embedding-ada-002",
+        input=text
+    )
+    return response.data[0].embedding
+    
 llm=ChatOpenAI(api_key=os.environ['OPENAI_API_KEY'],
                    model_name='gpt-4o',
                    temperature=0.0)
 
-client=OpenAI(api_key=os.environ['OPENAI_API_KEY'])
+
 vectorstore = PineconeVectorStore(index_name=index_name, embedding=embed)
 
 st.markdown("<h1 style='text-align: center; color: black;'>MediConnect AI 🏥</h1>", unsafe_allow_html=True)
@@ -60,7 +64,7 @@ if prompt := st.chat_input():
     answer=chat_response.content
 
     if re.search(r'\bYes\b', answer):
-
+    
         query_vec = embed(prompt)
 
         results = index.query(
@@ -70,6 +74,8 @@ if prompt := st.chat_input():
         )
 
         texts = [match["metadata"]["text"] for match in results["matches"]]
+
+        
         
         prompt='''Accept the user’s symptoms as input and provide probable diseases, diagnoses and prescription using only the information stored in the vector database. politely inform the user that the data is insufficient to provide a diagnosis when the given prompt is not relavent to Medical Symptoms.    
         Text:
@@ -95,6 +101,7 @@ if prompt := st.chat_input():
 
         st.chat_message("assistant").write(answer)
         st.chat_message("assistant").write("This is answered by second Agent. The Main purpose of this app is to detect disease from symptom. Please provide the Symptom")
+
 
 
 
