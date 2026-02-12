@@ -60,9 +60,20 @@ if prompt := st.chat_input():
     answer=chat_response.content
 
     if re.search(r'\bYes\b', answer):
+
+        query_vec = embed(query)
+
+        results = index.query(
+            vector=query_vec,
+            top_k=top_k,
+            include_metadata=True
+        )
+
+        texts = [match["metadata"]["text"] for match in results["matches"]]
+        
         prompt='''Accept the user’s symptoms as input and provide probable diseases, diagnoses and prescription using only the information stored in the vector database. politely inform the user that the data is insufficient to provide a diagnosis when the given prompt is not relavent to Medical Symptoms.    
         Text:
-        {prompt}'''
+        {texts}'''
 
         response = client.chat.completions.create(
         model="gpt-4o-mini",
@@ -84,12 +95,5 @@ if prompt := st.chat_input():
 
         st.chat_message("assistant").write(answer)
         st.chat_message("assistant").write("This is answered by second Agent. The Main purpose of this app is to detect disease from symptom. Please provide the Symptom")
-
-
-
-
-
-
-
 
 
