@@ -62,11 +62,11 @@ if prompt := st.chat_input():
     if re.search(r'\bYes\b', answer):
         prompt='''Accept the user’s symptoms as input and provide probable diseases, diagnoses and prescription using only the information stored in the vector database. politely inform the user that the data is insufficient to provide a diagnosis when the given prompt is not relavent to Medical Symptoms.    
         Text:
-        {context}'''
+        {prompt}'''
 
         response = client.chat.completions.create(
         model="gpt-4o-mini",
-        messages=[{"role": "user", "content": context}],
+        messages=[{"role": "user", "content": prompt}],
         temperature=0)
         
         answer=response.choices[0].message.content
