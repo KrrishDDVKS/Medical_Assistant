@@ -72,7 +72,7 @@ if prompt := st.chat_input():
             include_metadata=True
         )
 
-        texts = [match["metadata"]["text"] for match in results["matches"]]
+        texts = [match["metadata"]["text"]+""+match["metadata"]["Diagnosis"]+match["metadata"]["Disease"]+match["metadata"]["Prescription"]+match["metadata"]["Specialist"] for match in results["matches"]]
         st.write(texts)
 
         messages=[SystemMessage(content="Accept the user’s symptoms as input and provide as output the probable diseases, diagnoses and prescription."),
@@ -95,6 +95,7 @@ if prompt := st.chat_input():
 
         st.chat_message("assistant").write(answer)
         st.chat_message("assistant").write("This is answered by second Agent. The Main purpose of this app is to detect disease from symptom. Please provide the Symptom")
+
 
 
 
