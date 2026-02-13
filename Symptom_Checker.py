@@ -76,25 +76,13 @@ if prompt := st.chat_input():
         st.write(texts)
 
         messages=[SystemMessage(content="Accept the user’s symptoms as input and provide as output the probable diseases, diagnoses and prescription."),
-                          HumanMessage(content=prompt)]
+                          HumanMessage(content=texts]
         chat_response = llm.invoke(messages)
         answer=chat_response.content
         st.session_state.messages.append({"role": "assistant", "content": answer})
 
         st.chat_message("assistant").write(answer)
         
-        prompt='''    
-        Symptoms:
-        {texts}
-        Accept the user’s symptoms as input and provide as output the probable diseases, diagnoses and prescription using only the information stored in the vector database.
-        Disease:'''
-
-        response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0)
-        
-        answer=response.choices[0].message.content
         
         
     else:
@@ -107,6 +95,7 @@ if prompt := st.chat_input():
 
         st.chat_message("assistant").write(answer)
         st.chat_message("assistant").write("This is answered by second Agent. The Main purpose of this app is to detect disease from symptom. Please provide the Symptom")
+
 
 
 
